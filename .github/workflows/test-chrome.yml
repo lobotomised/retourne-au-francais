@@ -1,0 +1,36 @@
+name: Test Chrome Extension
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install puppeteer
+
+      - name: Run tests with Puppeteer
+        run: |
+          # Set up the environment for Puppeteer
+          export DISPLAY=:99.0
+          Xvfb :99 &
+
+          # Launch Chrome with the extension
+          node ./tests/ci/testChrome.js
