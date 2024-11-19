@@ -1,4 +1,6 @@
-class RetourneFrancais {
+import UpdateDom from './UpdateDom';
+
+export default class RetourneFrancais {
     rules(rules) {
         this.rules = rules
 

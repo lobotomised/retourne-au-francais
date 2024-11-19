@@ -1,4 +1,4 @@
-class UpdateDom {
+export default class UpdateDom {
     walkDOM(element, rules) {
         if (element === null) {
             return
@@ -30,10 +30,14 @@ class UpdateDom {
     updateText(element, rules) {
         let text = element.nodeValue
 
-        rules.forEach(
-            (rule) => text = text.replace(rule.pattern, rule.replacement)
-        )
+        element.nodeValue = this.replace(text, rules)
+    }
 
-        element.nodeValue = text
+    replace(text, rules) {
+        rules.forEach((rule) => {
+            text = text.replace(rule.pattern, rule.replacement)
+        })
+
+        return text;
     }
 }
